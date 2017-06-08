@@ -23,7 +23,7 @@ Example
     x = Dropout(0.5)(x)
     y = Dense(1)(x)
 
-    m = TransparentModel(inputs=[x0], outputs=[y], looking_glass=[y_extra])
+    m = TransparentModel(inputs=[x0], outputs=[y], observed_tensors=[y_extra])
     m.compile(optimizer="sgd", loss="mse")
 
     x_random = np.random.rand(128, 10)
