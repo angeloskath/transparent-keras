@@ -8,8 +8,8 @@ returned by `train_on_batch` or `evaluate_on_batch`.
 Example
 -------
 
-```python
 .. code:: python
+
     from keras.layers import Activation, Dense, Dropout, Input
     import numpy as np
 
