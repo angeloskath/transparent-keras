@@ -19,7 +19,7 @@ class TransparentModelTest(unittest.TestCase):
 
         return x0, y, y_extra
 
-    def test_simple_model(self):
+    def test_train_on_batch(self):
         x0, y, y_extra = self._get_tensors()
 
         m = TransparentModel(
@@ -38,6 +38,27 @@ class TransparentModelTest(unittest.TestCase):
 
         loss2, y_extra = m.train_on_batch(x, y)
         self.assertTrue(loss1 > loss2)
+
+    def test_test_on_batch(self):
+        x0, y, y_extra = self._get_tensors()
+
+        m = TransparentModel(
+            inputs=x0,
+            outputs=y,
+            observed_tensors=y_extra
+        )
+
+        m.compile("sgd", "mse")
+
+        x = np.random.rand(128, 10)
+        y = np.random.rand(128, 1)
+
+        loss1, y_extra1 = m.test_on_batch(x, y)
+        self.assertEqual(y_extra1.shape, (128, 10))
+
+        loss2, y_extra2 = m.test_on_batch(x, y)
+        self.assertEqual(loss1, loss2)
+        self.assertTrue(np.all(y_extra1 == y_extra2))
 
 
 if __name__ == "__main__":

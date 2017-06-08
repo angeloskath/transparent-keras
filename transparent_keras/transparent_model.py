@@ -19,7 +19,11 @@ class TransparentModel(object):
     kwargs: They are forwarded to the Keras Model class
     """
     def __init__(self, inputs, outputs, observed_tensors=None, **kwargs):
-        self._model = Model(inputs, outputs, **kwargs)
+        self._model = Model(
+            inputs=inputs,
+            outputs=outputs,
+            **kwargs
+        )
 
         # None, one or many observed tensors
         if observed_tensors is None:
