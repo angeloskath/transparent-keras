@@ -48,7 +48,8 @@ class TransparentModel(object):
         sample_weights)"""
         model = self._model
 
-        inputs = model._feed_inputs
+        inputs = []
+        inputs += model._feed_inputs
         inputs += model._feed_targets
         inputs += model._feed_sample_weights
         learning_phase = K.learning_phase()
