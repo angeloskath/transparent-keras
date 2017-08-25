@@ -75,9 +75,8 @@ class TransparentModel(object):
 
         updates = model.updates
         updates += model.optimizer.get_updates(
-            model._collected_trainable_weights,
-            model.constraints,
-            model.total_loss
+            params=model._collected_trainable_weights,
+            loss=model.total_loss
         )
 
         return updates

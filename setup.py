@@ -45,7 +45,7 @@ def setup_package():
         ],
         test_suite="transparent_keras.tests",
         packages=find_packages(exclude=["docs", "tests"]),
-        install_requires=["keras>=2"]
+        install_requires=["keras>=2.0.7"]
     )
 
 
