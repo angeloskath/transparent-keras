@@ -74,10 +74,18 @@ class TransparentModel(object):
         model = self._model
 
         updates = model.updates
-        updates += model.optimizer.get_updates(
-            params=model._collected_trainable_weights,
-            loss=model.total_loss
-        )
+        # To keep backwards compatibility with Keras optimizers
+        if hasattr(model, "constraints"):
+            updates += model.optimizer.get_updates(
+                model._collected_trainable_weights,
+                model.constraints,
+                model.total_loss
+            )
+        else:
+            updates += model.optimizer.get_updates(
+                model.total_loss,
+                model.trainable_weights
+            )
 
         return updates
 
